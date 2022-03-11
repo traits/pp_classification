@@ -9,6 +9,9 @@ holding_data = (
     data_dir
     / "Holdings details - FTSE All-World UCITS ETF - (USD) Accumulating - 3_11_2022.xlsx"
 )
+percent_column = "% of market value"
+ticker_column = "Ticker"
+holding_column = "Holding name"
 
 
 def f():
@@ -21,14 +24,10 @@ def f():
         skipfooter=2,
     )
 
-    percent_column = "% of market value"
-    ticker_column = "Ticker"
-    holding_column = "Holding name"
-
-    print(df[[ticker_column, holding_column, percent_column]].head(10))
-
     df[percent_column] = df[percent_column].str.replace("%", "")
     df[percent_column] = df[percent_column].astype(float)
+
+    print(df[[ticker_column, holding_column, percent_column]].head(10))
 
     plt.pie(df[percent_column], labels=df[ticker_column])
     plt.show()
