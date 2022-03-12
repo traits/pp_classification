@@ -8,7 +8,8 @@ Classification handling in [Portfolio Performance](https://github.com/buchen/por
 
 
 ## Data Sources
-- 
+- [GICS vs. ICB Stock Classification: What's the Difference?](https://www.investopedia.com/articles/stocks/08/global-industry-classification-industrial-classification-benchmark.asp)
+
 ### FTSE
 - [ICB Codes (Excel File)](https://www.ftserussell.com/files/support-document/icb-codes-descriptions)
 - [Vanguard FTSE All-World (deutsch)](https://www.de.vanguard/professionell/anlageprodukte/etf/aktien/9679/ftse-all-world-ucits-etf-usd-accumulating)
