@@ -18,6 +18,7 @@ class Classificator(ABC):
     def __init__(self, schema_file=None):
         self._categories = []
         self._data_root = directories["classifications"]
+        self._output_root = directories["output"]
 
     def categories(self) -> list:
         return self._categories
