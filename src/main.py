@@ -2,11 +2,18 @@ from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 
+# from indexes.gics import GICS
+# from indexes.icb import ICB
+
+
 project_dir = Path(__file__).resolve().parents[1]
-data_dir = project_dir / "data" / "raw"
 out_dir = project_dir / "_output"
+data_dir = project_dir / "data" / "raw"
+classification_dir = data_dir / "classifications"
+stock_dir = data_dir / "stock"
 holding_data = (
-    data_dir
+    stock_dir
+    / "IE00BK5BQT80"
     / "Holdings details - FTSE All-World UCITS ETF - (USD) Accumulating - 3_11_2022.xlsx"
 )
 percent_column = "% of market value"
@@ -34,5 +41,8 @@ def f():
 
 
 if __name__ == "__main__":
+    # g = GICS()
+    # i = ICB()
+
     f()
     print("script completed")
