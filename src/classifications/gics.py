@@ -35,13 +35,13 @@ class GICS(Classificator):
             self._createSchemaCountries()
 
     def _createSchemaCountries(self):
-        return {}
+        pass
 
     def _createSchemaSectors(self):
-        self._createLangSectors("EN")
+        self._createLangSectors("EN", True)
         self._createLangSectors("DE")
 
-    def _createLangSectors(self, lang):
+    def _createLangSectors(self, lang, export_sectors=False):
         def tuplefy(row) -> list:
             lst = list(row)
             it = iter(lst)
@@ -86,7 +86,7 @@ class GICS(Classificator):
 
         template = [None] * len(header)
 
-        print(f"{header}\n----")
+        # print(f"{header}\n----")
         col = header[0][1]
         schema = {}
         i18n["codes"] = {}
@@ -98,15 +98,15 @@ class GICS(Classificator):
             # print(f"{template}")
             d = schema
             for i, t in enumerate(template):
-                col = header[i][1]  # 'Sector', 'Industry Group', ...
-                d[col] = d.get(col, {})
-                d[col][t[0]] = d[col].get(t[0], {})
-                d[col][t[0]]["descr"] = t[1]
+                d[t[0]] = d.get(t[0], {})
                 i18n["codes"][t[0]] = t[1]
-                d = d[col][t[0]]
-            with open(self._output_root / f"sectors_{lang}.json", "w+b") as file:
-                s = json.dumps(schema, indent=2, ensure_ascii=False).encode("utf-8")
-                file.write(s)
+                d = d[t[0]]
+
+            # Be careful with encoding here
+            if export_sectors:
+                with open(self._output_root / f"sectors.json", "w+b") as file:
+                    s = json.dumps(schema, indent=2, ensure_ascii=False).encode("utf-8")
+                    file.write(s)
             with open(self._output_root / f"{lang}.json", "w+b") as file:
                 s = json.dumps(i18n, indent=2, ensure_ascii=False).encode("utf-8")
                 file.write(s)
