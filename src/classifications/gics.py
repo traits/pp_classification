@@ -12,34 +12,43 @@ class GICS(Classificator):
     def __init__(self, schema_file=None):
         self.base().__init__(schema_file)
         self._categories = [Category.Region, Category.Sector]
+
         self._data_root = self._data_root / "gics"
-        self._data_raw = self._data_root / "edited" / "GICS_map 2018.xlsx"
+        with open(self._data_root / "meta.json", "r") as f:
+            self._meta = json.load(f)
+            self._data_raw = {}
+            self._data_raw["EN"] = self._data_root / "edited" / "GICS_map 2018.xlsx"
+            self._data_raw["DE"] = (
+                self._data_root / "edited" / "GICS_map 2018_German.xlsx"
+            )
+        self._output_root = self._output_root / "GICS"
 
     def createSchemaDefinitions(self):
+        self._output_root.mkdir(parents=True, exist_ok=True)
         for cat in self._categories:
-            ret = self._createSchema(cat)
-            with open(self._output_root / "GICS.json", "w") as file:
-                json.dump(ret, file, indent=2)
+            self._createSchema(cat)
 
     def _createSchema(self, cat: Category) -> dict:
         if cat is Category.Sector:
-            return self._createSchemaSector()
+            self._createSchemaSectors()
         else:
-            return self._createSchemaCountry()
+            self._createSchemaCountries()
 
-    def _createSchemaCountry(self) -> dict:
+    def _createSchemaCountries(self):
         return {}
 
-    def _createSchemaSector(self) -> dict:
+    def _createSchemaSectors(self):
+        self._createLangSectors("EN")
+        self._createLangSectors("DE")
+
+    def _createLangSectors(self, lang):
         def tuplefy(row) -> list:
             lst = list(row)
             it = iter(lst)
             return list(zip(it, it))
 
-        ret = {}
-
         df = pd.read_excel(
-            self._data_raw,
+            self._data_raw[lang],
             sheet_name=0,
             header=4,
             # usecols=[0, 1, 2, 3],
@@ -49,6 +58,13 @@ class GICS(Classificator):
         # Match data by creating new header, splitting the columns
         # of the old one in two new cells col_name_id:col_name
         header = tuplefy(df.columns.values)
+
+        i18n = {
+            "categories": dict(
+                zip(self._meta["categories"], [n for n, m in list(header)])
+            )
+        }
+
         header = [[f"{e[0]}_id", e[0]] for e in header]
         header = [e for col_tuple in header for e in col_tuple]
         header_map = dict(zip(list(df.columns.values), header))
@@ -67,22 +83,30 @@ class GICS(Classificator):
         # print(df.head(20).to_string())
 
         header = tuplefy(df.columns.values)
+
         template = [None] * len(header)
 
         print(f"{header}\n----")
         col = header[0][1]
-        # ret = {col: {}}  # "Sectors":{}
+        schema = {}
+        i18n["codes"] = {}
         for _, row in df.iterrows():
             r = tuplefy(row)
             for i, e in enumerate(r):
                 if not pd.isna(e[0]):
                     template[i] = e
-            print(f"{template}")
-            d = ret
+            # print(f"{template}")
+            d = schema
             for i, t in enumerate(template):
                 col = header[i][1]  # 'Sector', 'Industry Group', ...
                 d[col] = d.get(col, {})
                 d[col][t[0]] = d[col].get(t[0], {})
                 d[col][t[0]]["descr"] = t[1]
+                i18n["codes"][t[0]] = t[1]
                 d = d[col][t[0]]
-        return ret
+            with open(self._output_root / f"sectors_{lang}.json", "w+b") as file:
+                s = json.dumps(schema, indent=2, ensure_ascii=False).encode("utf-8")
+                file.write(s)
+            with open(self._output_root / f"{lang}.json", "w+b") as file:
+                s = json.dumps(i18n, indent=2, ensure_ascii=False).encode("utf-8")
+                file.write(s)
