@@ -1,6 +1,10 @@
 # pp_classification
 
-Classification handling in [Portfolio Performance](https://github.com/buchen/portfolio)
+Classification handling in [Portfolio Performance](https://github.com/buchen/portfolio). See also:
+  - [Forum Discussion (deutsch)](https://forum.portfolio-performance.info/t/automatische-erstellung-von-klassifizierungen/2969)
+  - [Similar PP issue](https://github.com/buchen/portfolio/issues/1665)
+  - [etf-classification-pp (github)](https://github.com/fbuchinger/etf-classification-pp)
+
 
 ## Dependencies
 - pandas
@@ -39,6 +43,5 @@ Classification handling in [Portfolio Performance](https://github.com/buchen/por
 It is possible to obtain computer-processable crossovers between different standards, but this is [somewhat expensive](https://classification.codes/store/selection/).
 
 ## Links
-- [Forum Discussion (deutsch)](https://forum.portfolio-performance.info/t/automatische-erstellung-von-klassifizierungen/2969)
 - [Global Industry Classification Standard (GICS)](https://en.wikipedia.org/wiki/Global_Industry_Classification_Standard)
 - [Industry Classification Benchmark (ICB)](https://en.wikipedia.org/wiki/Industry_Classification_Benchmark)

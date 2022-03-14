@@ -1,1 +1,1 @@
-- #
+- inject new taxonomies and weighted funds as additional \<taxonomy> entries in <portfolio_name>.xml (as long, as no public API exists)
