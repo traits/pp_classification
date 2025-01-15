@@ -15,10 +15,15 @@ Classification handling in [Portfolio Performance](https://github.com/buchen/por
 - [GICS vs. ICB Stock Classification: What's the Difference?](https://www.investopedia.com/articles/stocks/08/global-industry-classification-industrial-classification-benchmark.asp)
 
 ### Classifications
-- [ICB (FTSE Russell)](https://www.ftserussell.com/data/industry-classification-benchmark-icb)
-  - [Codes (Excel File)](https://www.ftserussell.com/files/support-document/icb-codes-descriptions)
-  - [Structure (Excel File)](https://www.ftserussell.com/files/support-document/icb-structure-definitions)
-- [GICS](https://www.msci.com/our-solutions/indexes/gics)
+
+#### ICB
+  - [Wikipedia](https://en.wikipedia.org/wiki/Industry_Classification_Benchmark) 
+  - [FTSE Russell - Industry Classification Benchmark](https://www.ftserussell.com/data/industry-classification-benchmark-icb)
+    - [Codes (Excel File)](https://www.ftserussell.com/files/support-document/icb-codes-descriptions)
+    - [Structure (Excel File)](https://www.ftserussell.com/files/support-document/icb-structure-definitions)
+#### GICS
+  - [Wikipedia](https://en.wikipedia.org/wiki/Global_Industry_Classification_Standard) 
+  - [MSCI - The Global Industry Classification Standard](https://www.msci.com/our-solutions/indexes/gics)
     - [GICS structure & sub-industry definitions (Excel File)](https://www.msci.com/documents/1296102/11185224/GICS_map+2018.xlsx/)
     - The site also hosts Excelified translations (e.g in [German](https://www.msci.com/documents/1296102/11185315/GICS_map+2018_German.xlsx))
 
@@ -42,6 +47,4 @@ Classification handling in [Portfolio Performance](https://github.com/buchen/por
 
 It is possible to obtain computer-processable crossovers between different standards, but this is [somewhat expensive](https://classification.codes/store/selection/).
 
-## Links
-- [Global Industry Classification Standard (GICS)](https://en.wikipedia.org/wiki/Global_Industry_Classification_Standard)
-- [Industry Classification Benchmark (ICB)](https://en.wikipedia.org/wiki/Industry_Classification_Benchmark)
+
